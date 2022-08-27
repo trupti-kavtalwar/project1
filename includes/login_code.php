@@ -15,7 +15,7 @@ $name =  $_SESSION($row['name']);
 header("Location:index1.php");
 }
 else{
-header("Location:index.php")  
+header("Location:index.php");
 }
 
 

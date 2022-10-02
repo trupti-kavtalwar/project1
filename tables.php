@@ -1,3 +1,11 @@
+<?php
+include "config.php";
+
+$sql = "select * from tab_family ";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_array($result);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,12 +51,12 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.php">
+                            <a class="nav-link" href="homepage.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Layouts
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -58,7 +66,7 @@
                                     <a class="nav-link" href="layout-static.php">Static Navigation</a>
                                     <a class="nav-link" href="layout-sidenav-light.php">Light Sidenav</a>
                                 </nav>
-                            </div>
+                            </div> -->
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Pages
@@ -66,7 +74,10 @@
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                <a class="nav-link " href="login.php" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">Login</a>
+                                    <a class="nav-link " href="register.php" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">Register</a>
+                                    <a class="nav-link " href="password.php" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">Forgot Password</a>
+                                    <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                                         Authentication
                                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                     </a>
@@ -76,7 +87,7 @@
                                             <a class="nav-link" href="register.php">Register</a>
                                             <a class="nav-link" href="password.php">Forgot Password</a>
                                         </nav>
-                                    </div>
+                                    </div> -->
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
                                         Error
                                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -91,10 +102,10 @@
                                 </nav>
                             </div>
                             <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.php">
+                            <!-- <a class="nav-link" href="charts.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
-                            </a>
+                            </a> -->
                             <a class="nav-link" href="tables.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Tables
@@ -112,23 +123,59 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Tables</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="homepage.php">Dashboard</a></li>
                             <li class="breadcrumb-item active">Tables</li>
                         </ol>
-                        <div class="card mb-4">
+                        <!-- <div class="card mb-4">
                             <div class="card-body">
                                 DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
                                 <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
                                 .
                             </div>
-                        </div>
+                        </div> -->
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 DataTable Example
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                            <table  id="datatablesSimple">
+                                <tr>
+                                    <td colspan="7"><h3>Manage Register</h3></td>
+                                    <td> <a href="register.php"> <button class="btn btn-success"> Add</button></a></td>
+                                </tr>
+                                <tr>
+                                    <td>Sr.No.</td>
+                                    <td>User Name</td>
+                                    <td>Gender</td>
+                                    <td>Email</td>
+                                    <td>Address</td>
+                                    <td>Password</td>
+                                    <td>Date</td>
+                                    <td>Action</td>
+                                    
+                                </tr>
+                                <?php
+                                $i = 1;
+                                while($rows = mysqli_fetch_array($result)) {
+                                ?>
+                                <tr>
+                                    <td> <?php echo $i++; ?></td>
+                                    <td><?php echo $rows['name']; ?></td>
+                                    <td><?php echo $rows['gender']; ?></td>
+                                    <td><?php echo $rows['email']; ?></td>
+                                    <td><?php echo $rows['address']; ?></td>
+                                    <td><?php echo $rows['password']; ?></td>
+                                    <td><?php echo $rows['date']; ?></td>
+                                    <td><a href="view_register.php?viewid=<?php echo $rows['id']; ?>" onClick="return confirm('View This account?')"> <button class="btn btn-success">View</button></a>
+                                    <a href="edit_register.php?editid=<?php echo $rows['id']; ?>" onClick="return confirm('Edit This account?')"> <button class="btn btn-success">Edit</button></a>
+                                    <a href="delete_register.php?deleteid=<?php echo $rows['id']; ?>" onClick="return confirm('Delete This account?')"><button class="btn btn-success">Delete</button></a></td>
+                                </tr>
+                                    <?php
+                                    }
+                                    ?>
+                            </table>
+                                <!-- <table id="datatablesSimple">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -607,7 +654,7 @@
                                             <td>$112,000</td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> -->
                             </div>
                         </div>
                     </div>

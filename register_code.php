@@ -4,5 +4,5 @@ include "config.php";
 $sql = "insert into tab_family (name , email, address , password , gender , date) 
         values ('$name' , '$email','$address' , '$password', '$gender' , now() )";
 $result = mysqli_query($conn , $sql);
-header("Location:index.php");
+header("Location:homepage.php");
 ?>
